@@ -1,16 +1,18 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import axios from "axios";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
 
+    const externalApiUrl: string = "http://job-applicants-dummy-api.kupferwerk.net.s3.amazonaws.com/api/cars.json";
+
+    const res = await axios.get(externalApiUrl);
 
     context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
+        headers: {
+            "content-type": "application/json"
+        },
+        body: res.data
     };
 
 };
