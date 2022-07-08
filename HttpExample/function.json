@@ -14,6 +14,15 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputDocument",
+      "databaseName": "SampleDB",
+      "collectionName": "SampleCollection",
+      "createIfNotExists": false,
+      "connectionStringSetting": "CosmosDbConnectionString"
     }
   ],
   "scriptFile": "../dist/HttpExample/index.js"
